@@ -1,0 +1,16 @@
+{
+    "name": "any-node",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "zdene",
+    "contributors": [],
+    "dependencies": {
+        "selenium-webdriver": "^4.1.1"
+    }
+}
