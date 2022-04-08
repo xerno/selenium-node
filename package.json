@@ -11,6 +11,13 @@
     "author": "zdene",
     "contributors": [],
     "dependencies": {
+        "mocha": "^9.2.2",
         "selenium-webdriver": "^4.1.1"
+    },
+    "scripts": {
+        "start": "node main.js"
+    },
+    "devDependencies": {
+        "chai": "^4.3.6"
     }
 }
