@@ -2,7 +2,7 @@
 const { Builder, By, Key, until } = require('selenium-webdriver')
 const assert = require('assert')
 
-describe('objednavkaTest1', function() {
+describe('objednavkaTest (1)', function() {
   this.timeout(30000)
   let driver
   let vars
@@ -13,12 +13,501 @@ describe('objednavkaTest1', function() {
   afterEach(async function() {
     await driver.quit();
   })
-  it('objednavkaTest1', async function() {
-    await driver.get("http://admin-test.kokiska.cz/")
-    await driver.findElement(By.id("ui-id-8")).click()
+  it('objednavkaTest (1)', async function() {
+    vars["url"] = await driver.executeScript("return window.location.href")
+    console.log(vars["url"])
+    if (!!await driver.executeScript("return (arguments[0] == \'chrome-extension://mooikfkahbdckldjjndioackbalphokd/bootstrap.html\')", vars["url"])) {
+      await driver.get("http://admin-test.kokiska.cz/")
+      await driver.findElement(By.id("ui-id-8")).click()
+      await driver.sleep(1000)
+    }
     vars["w"] = "1"
-    while(!!await driver.executeScript("return (arguments[0] < 2)", vars["w"])) {
-      await driver.findElement(By.css("tr.row-orders:nth-child" + (vars["w"]) + "strong")).click()
+    while(!!await driver.executeScript("return (arguments[0] < 4)", vars["w"])) {
+      await driver.findElement(By.css(".row-orders:nth-child(vars["w"]) strong")).click()
+      {
+        const elements = await driver.findElements(By.css("ul.breadcrumb"))
+        assert(elements.length)
+      }
+      await driver.findElement(By.id("ui-id-22")).click()
+      {
+        const elements = await driver.findElements(By.xpath("//a[@href=\'http://admin-test.kokiska.cz/cz/\' and contains(.,\'Home\')]"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.xpath("//*[@class=\'active\' and contains(.,\'Objednávky\')]"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.id("refreshActiveUsers"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.id("snippet-active-users"))
+        assert(elements.length)
+      }
+      vars["iconSize"] = await driver.findElements(By.xpath("//*[@class=\'tooltip-title\' and contains(@src, \'http://admin-test.kokiska.cz/public_admin/images/llibs/\')]")).length
+      console.log(vars["iconSize"])
+      vars["a"] = await driver.executeScript("return arguments[0] > 0;", vars["iconSize"])
+      assert(vars["a"].toString() == "true")
+      vars["userSize"] = await driver.findElements(By.xpath("//*[@id=\"snippet-order-info\"]/tbody/tr[1]/td[2]/a")).length
+      if (!!await driver.executeScript("return (arguments[0] < 1)", vars["userSize"])) {
+        {
+          const attribute = await driver.findElement(By.css("img.tooltip-title:last-of-type")).getAttribute("data-original-title")
+          vars["projectName"] = attribute
+        }
+        console.log(vars["projectName"])
+        if (!!await driver.executeScript("return (arguments[0] == \'Kokiskashop.cz\' || arguments[0] == \'Dilego.cz\' || arguments[0] == \'Gorillasports.cz\' || arguments[0] == \'AAApoker.cz\')", vars["projectName"])) {
+          {
+            const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Česká republika\')]"))
+            assert(elements.length)
+          }
+        } else if (!!await driver.executeScript("return (arguments[0] == \'Kokiskashop.sk\' || arguments[0] == \'Dilego.sk\')", vars["projectName"])) {
+          {
+            const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Slovensko\')]"))
+            assert(elements.length)
+          }
+        } else if (!!await driver.executeScript("return (arguments[0] == \'Kokiskashop.pl\' || arguments[0] == \'Dilego.pl\')", vars["projectName"])) {
+          {
+            const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Polsko\')]"))
+            assert(elements.length)
+          }
+        } else if (!!await driver.executeScript("return (arguments[0] == \'Kokiskashop.hu\' || arguments[0] == \'iDilego.hu\' || arguments[0] == \'Gorillasports.hu\')", vars["projectName"])) {
+          {
+            const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Maďarsko\')]"))
+            assert(elements.length)
+          }
+        } else if (!!await driver.executeScript("return (arguments[0] == \'Kokiskashop.ro\' || arguments[0] == \'Dilego.ro\')", vars["projectName"])) {
+          {
+            const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Rumunsko\')]"))
+            assert(elements.length)
+          }
+        } else if (!!await driver.executeScript("return (arguments[0] == \'Kokiskashop.bg\' || arguments[0] == \'Dilego.bg\')", vars["projectName"])) {
+          {
+            const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Bulharsko\')]"))
+            assert(elements.length)
+          }
+        }
+      }
+      {
+        const attribute = await driver.findElement(By.css("img.tooltip-title:last-of-type")).getAttribute("data-original-title")
+        vars["projectName"] = attribute
+      }
+      if (!!await driver.executeScript("return (arguments[0].includes(\'Kokiska\') || arguments[0].includes(\'Gorilla\') || arguments[0].includes(\'poker\'))", vars["projectName"])) {
+        {
+          const elements = await driver.findElements(By.xpath("//*[contains(text(), \'Kokiska s.r.o.\')]"))
+          assert(elements.length)
+        }
+      } else if (!!await driver.executeScript("return (arguments[0].includes(\'Dilego\'))", vars["projectName"])) {
+        {
+          const elements = await driver.findElements(By.xpath("//*[contains(text(), \'GENOX s.r.o.\')]"))
+          assert(elements.length)
+        }
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(1)"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(1) > button.btn.btn-mini.dropdown-toggle"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(1) > button.btn.btn-mini.dropdown-toggle > span"))
+        assert(elements.length)
+      }
+      vars["orderState"] = await driver.findElement(By.xpath("//*[@class=\'order-state\']")).getText()
+      assert(await driver.findElement(By.css(".btn-do-link-blank")).getText() == " Tisk")
+      {
+        const elements = await driver.findElements(By.id("sendingEmail"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#sendingEmail > button > i"))
+        assert(elements.length)
+      }
+      assert(await driver.findElement(By.css("#sendingEmail > .btn")).getText() == "  Emaily")
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > button:nth-child(3)"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > button:nth-child(3) > i"))
+        assert(elements.length)
+      }
+      assert(await driver.findElement(By.css(".btn-mini:nth-child(3)")).getText() == " Storno")
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(4)"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(4) > button.btn-do-link.btn.btn-mini > i"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(4) > button.btn.btn-mini.dropdown-toggle > span"))
+        assert(elements.length)
+      }
+      assert(await driver.findElement(By.css(".btn-group:nth-child(4) > .btn-do-link")).getText() == " Reklamovat")
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(5)"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(5) > button > i"))
+        assert(elements.length)
+      }
+      assert(await driver.findElement(By.css(".btn-group > .btn-info")).getText() == "  Čísla balíků")
+      vars["paydropdown"] = await driver.findElements(By.xpath("//button[@data-toggle=\'dropdown\' and contains(text(), \'Zaplatit\')]")).length
+      if (!!await driver.executeScript("return (arguments[0].includes(\'dokončené\'))", vars["orderState"])) {
+        {
+          const elements = await driver.findElements(By.id("pay"))
+          assert(elements.length)
+        }
+        {
+          const elements = await driver.findElements(By.css("#pay > i"))
+          assert(elements.length)
+        }
+        assert(await driver.findElement(By.id("pay")).getText() == " Zaplatit")
+      } else if (!!await driver.executeScript("return (arguments[0] > 0)", vars["paydropdown"])) {
+        {
+          const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(6) > button"))
+          assert(elements.length)
+        }
+        assert(await driver.findElement(By.css(".btn-group > .btn-success")).getText() == "Zaplatit")
+      } else {
+        {
+          const elements = await driver.findElements(By.id("pay"))
+          assert(elements.length)
+        }
+        {
+          const elements = await driver.findElements(By.css("#pay > i"))
+          assert(elements.length)
+        }
+        assert(await driver.findElement(By.id("pay")).getText() == " Zaplatit")
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(7)"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css("#snippet-order-detail > div.order-controls > div:nth-child(7) > button > i"))
+        assert(elements.length)
+      }
+      await driver.findElement(By.css(".order-controls > .btn-group:nth-child(1) .caret")).click()
+      vars["printIconSize"] = await driver.findElements(By.xpath("//i[@class=\'fa fa-print\']")).length
+      assert(vars["printIconSize"].toString() == "3")
+      {
+        const elements = await driver.findElements(By.linkText("Tisk pro expedici"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.linkText("Tisk pro expedici - rozšířený"))
+        assert(elements.length)
+      }
+      await driver.findElement(By.css(".btn-group:nth-child(4) > .dropdown-toggle")).click()
+      await driver.sleep(200)
+      vars["pickovani"] = await driver.findElements(By.xpath("//*[contains(text(), \'pickování\')]")).length
+      vars["faIconSize"] = await driver.findElements(By.xpath("//i[@class=\'fa fa-file-text-o\']")).length
+      vars["date1"] = await driver.executeScript("var d = new Date(); var m = ((d.getMonth() + 1) < 10) ? \'0\' + (d.getMonth() + 1) : (d.getMonth() + 1); return d.getDate() + \'.\'+ m + \'.\' + d.getFullYear();")
+      vars["date2"] = await driver.executeScript("var d = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * (-1)); var m = ((d.getMonth() + 1) < 10) ? \'0\' + (d.getMonth() + 1) : (d.getMonth() + 1); m = d.getDate() + \'.\' + m + \'.\' + d.getFullYear(); return m")
+      vars["date3"] = await driver.executeScript("var d = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * (-2)); var m = ((d.getMonth() + 1) < 10) ? \'0\' + (d.getMonth() + 1) : (d.getMonth() + 1); m = d.getDate() + \'.\' + m + \'.\' + d.getFullYear(); return m")
+      vars["date4"] = await driver.executeScript("var d = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * (-3)); var m = ((d.getMonth() + 1) < 10) ? \'0\' + (d.getMonth() + 1) : (d.getMonth() + 1); m = d.getDate() + \'.\' + m + \'.\' + d.getFullYear(); return m")
+      vars["date5"] = await driver.executeScript("var d = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * (-4)); var m = ((d.getMonth() + 1) < 10) ? \'0\' + (d.getMonth() + 1) : (d.getMonth() + 1); m = d.getDate() + \'.\' + m + \'.\' + d.getFullYear(); return m")
+      vars["lastdays"] = await driver.executeScript("return [arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]]", vars["date1"],vars["date2"],vars["date3"],vars["date4"],vars["date5"])
+      vars["orderDate"] = await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(2) > td:nth-child(2)")).getText()
+      vars["orderDate"] = await driver.executeScript("return arguments[0].substr(0,10)", vars["orderDate"])
+      vars["q"] = await driver.findElements(By.xpath("//*[contains(text(), \'Expedováno\')]")).length
+      console.log(vars["q"])
+      if (!!await driver.executeScript("return (arguments[0].includes(arguments[1]) && arguments[2].includes(\'dokončené\'))", vars["lastdays"],vars["orderDate"],vars["orderState"])) {
+        assert(vars["faIconSize"].toString() == "1")
+        {
+          const elements = await driver.findElements(By.css("#regenerateInvoice > .fa"))
+          assert(elements.length)
+        }
+        {
+          const elements = await driver.findElements(By.id("regenerateInvoice"))
+          assert(elements.length)
+        }
+      } else if (!!await driver.executeScript("return (!arguments[0].includes(\'dokončené\') && arguments[1] < 0 && arguments[2] <= 2)", vars["orderState"],vars["q"],vars["pickovani"])) {
+        assert(vars["faIconSize"].toString() == "2")
+        {
+          const elements = await driver.findElements(By.linkText("Vytvořit fakturu"))
+          assert(elements.length)
+        }
+      }
+      vars["postageImgSize"] = await driver.findElements(By.xpath("//*[@class=\'postage-image\']/img")).length
+      if (!!await driver.executeScript("return (arguments[0] > 0)", vars["postageImgSize"])) {
+        {
+          const attribute = await driver.findElement(By.css("td.postage-image:nth-child(1) > img")).getAttribute("src")
+          vars["imgurl"] = attribute
+        }
+        console.log(vars["imgurl"])
+        vars["x"] = await driver.executeScript("return arguments[0].substr(33,17)", vars["imgurl"])
+        console.log(vars["x"])
+        if (!!await driver.executeScript("return (!arguments[0].includes(arguments[1]))", vars["imgurl"],vars["x"])) {
+          {
+            const elements = await driver.findElements(By.css(".fa-truck"))
+            assert(elements.length)
+          }
+          {
+            const elements = await driver.findElements(By.linkText("Reklamovat u dopravce"))
+            assert(elements.length)
+          }
+        }
+      }
+      {
+        const elements = await driver.findElements(By.css(".fa-files-o"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.id("createCreditNote"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.linkText("Vytvořit zálohovou fakturu"))
+        assert(elements.length)
+      }
+      await driver.findElement(By.css(".btn-group:nth-child(7) > .btn")).click()
+      vars["envelIconSize"] = await driver.findElements(By.xpath("//i[@class=\'fa fa-envelope-o\']")).length
+      assert(vars["envelIconSize"].toString() == "3")
+      {
+        const elements = await driver.findElements(By.linkText("Poslat email"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.linkText("Poslat SMS"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css(".fa-share"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.linkText("Vykonat postakci"))
+        assert(elements.length)
+      }
+      if (!!await driver.executeScript("return (arguments[0] > 1)", vars["faIconSize"])) {
+        {
+          const elements = await driver.findElements(By.css(".ajax > .fa-cogs"))
+          assert(elements.length)
+        }
+        {
+          const elements = await driver.findElements(By.linkText("Předvyplnit fakturu"))
+          assert(elements.length)
+        }
+      }
+      vars["redIconSize"] = await driver.findElements(By.xpath("//i[@class=\'fa fa-warning redFont\']")).length
+      if (!!await driver.executeScript("return (arguments[0] > 0)", vars["redIconSize"])) {
+        {
+          const elements = await driver.findElements(By.css(".fa-exclamation-triangle"))
+          assert(elements.length)
+        }
+        {
+          const elements = await driver.findElements(By.linkText("Upravit problém"))
+          assert(elements.length)
+        }
+      }
+      await driver.findElement(By.css(".open .caret")).click()
+      {
+        const elements = await driver.findElements(By.css("h4"))
+        assert(elements.length)
+      }
+      vars["orderID"] = await driver.findElement(By.css("h4")).getText()
+      vars["orderID"] = await driver.executeScript("return parseInt(arguments[0].match(/\\d/g).join(\'\'), 10)", vars["orderID"])
+      vars["variableSymbol"] = await driver.findElement(By.id("variableSymbol")).getText()
+      assert(vars["orderID"].toString() == "vars["variableSymbol"]")
+      vars["table"] = await driver.findElements(By.xpath("//table[@class=\'table table-inner table-left\']")).length
+      assert(vars["table"].toString() == "2")
+      assert(await driver.findElement(By.css("#snippet-shop-information > table > tbody > tr:nth-child(1) > td:nth-child(1)")).getText() == "Dodavatel")
+      {
+        const elements = await driver.findElements(By.css(".align-left:nth-child(1) > .ajax"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css(".btn-group .fa-edit"))
+        assert(elements.length)
+      }
+      {
+        const elements = await driver.findElements(By.css(".pull-right .caret"))
+        assert(elements.length)
+      }
+      await driver.findElement(By.css(".pull-right > .btn-group > .dropdown-toggle")).click()
+      {
+        const elements = await driver.findElements(By.css(".fa-font"))
+        assert(elements.length)
+      }
+      vars["pickovani"] = await driver.findElements(By.xpath("//*[contains(text(), \'pickování\')]")).length
+      vars["send"] = await driver.findElements(By.xpath("//*[contains(text(), \'Expedováno\')]")).length
+      if (!!await driver.executeScript("return (!arguments[0].includes(\'dokončené\')  && arguments[1] <= 2 && !arguments[2] < 1)", vars["orderState"],vars["pickovani"],vars["send"])) {
+        {
+          const elements = await driver.findElements(By.linkText("Variabilní symbol"))
+          assert(elements.length)
+        }
+        await driver.findElement(By.linkText("Variabilní symbol")).click()
+        {
+          const elements = await driver.findElements(By.css("#main-modal-area"))
+          assert(elements.length)
+        }
+        await driver.sleep(500)
+        {
+          const elements = await driver.findElements(By.css(".modal-header > h4"))
+          assert(elements.length)
+        }
+        assert(await driver.findElement(By.css(".modal-header > h4")).getText() == "Úprava variabiního symbolu")
+        {
+          const elements = await driver.findElements(By.css(".control-label"))
+          assert(elements.length)
+        }
+        assert(await driver.findElement(By.css(".control-label")).getText() == "Variabilní symbol:")
+        {
+          const elements = await driver.findElements(By.name("variableSymbol"))
+          assert(elements.length)
+        }
+        {
+          const element = await driver.findElement(By.name("variableSymbol"))
+          assert(await element.isEnabled())
+        }
+        {
+          const elements = await driver.findElements(By.css(".btn-warning"))
+          assert(elements.length)
+        }
+        {
+          const elements = await driver.findElements(By.css(".smallLeftMargin"))
+          assert(elements.length)
+        }
+        assert(await driver.findElement(By.css(".btn-warning")).getText() == "  Zavřít")
+        assert(await driver.findElement(By.css(".smallLeftMargin")).getText() == "  Upravit")
+        {
+          const elements = await driver.findElements(By.css("#mainModal > .close > .fa"))
+          assert(elements.length)
+        }
+        await driver.findElement(By.css("#mainModal > .close > .fa")).click()
+      } else {
+        {
+          const elements = await driver.findElements(By.xpath("//button[@disabled and contains(@data-url, \'http://admin-test.kokiska.cz/cz/informations/update-order-shop-info/\')]"))
+          assert(elements.length)
+        }
+      }
+      if (!!await driver.executeScript("return (arguments[0].includes(\'Kokiska\') || arguments[0].includes(\'poker\') || arguments[0].includes(\'Gorilla\'))", vars["projectName"])) {
+        assert(await driver.findElement(By.css("td:nth-child(1) > strong")).getText() == "Kokiska s.r.o.")
+        assert(await driver.findElement(By.css(".table > tbody > tr:nth-child(4) > td:nth-child(2)")).getText() == "02509016")
+        assert(await driver.findElement(By.css("tr:nth-child(4) > td:nth-child(4)")).getText() == "CZ02509016")
+        if (!!await driver.executeScript("return (arguments[0].includes(\'.cz\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "8568282/0800")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.sk\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "SK8111110000001272388007")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.pl\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "84105010701000009031461990")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.hu\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "10918001-00000087-47160005")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.ro\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "CZ0708000000000009185902")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.bg\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "CZ1408000000000009185582")
+        }
+      } else if (!!await driver.executeScript("return (arguments[0].includes(\'Dilego\'))", vars["projectName"])) {
+        assert(await driver.findElement(By.css("td:nth-child(1) > strong")).getText() == "GENOX s.r.o.")
+        assert(await driver.findElement(By.css(".table > tbody > tr:nth-child(4) > td:nth-child(2)")).getText() == "04412729")
+        assert(await driver.findElement(By.css("tr:nth-child(4) > td:nth-child(4)")).getText() == "CZ04412729")
+        if (!!await driver.executeScript("return (arguments[0].includes(\'.cz\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "8753322/0800")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.sk\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "SK3511110000001317443007")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.pl\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "62105010701000009031476063")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.hu\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "10918001-00000087-47670009")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.ro\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "CZ3408000000000009191042")
+        } else if (!!await driver.executeScript("return (arguments[0].includes(\'.bg\'))", vars["projectName"])) {
+          assert(await driver.findElement(By.css("td:nth-child(2) > strong:nth-child(1)")).getText() == "CZ5208000000000009190912")
+        }
+      }
+      assert(await driver.findElement(By.css("#snippet-shop-information tr:nth-child(3) > td")).getText() == "Stráň 3, Sadov - 36001")
+      assert(await driver.findElement(By.css("#snippet-shop-information tr:nth-child(4) > td:nth-child(1)")).getText() == "IČO:")
+      assert(await driver.findElement(By.css("tr:nth-child(4) > td:nth-child(3)")).getText() == "DIČ:")
+      assert(await driver.findElement(By.css("#snippet-shop-information tr:nth-child(5) > td:nth-child(1)")).getText() == "Účet:")
+      assert(await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(1) > td:nth-child(1)")).getText() == "Vytvořil:")
+      assert(await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(2) > td:nth-child(1)")).getText() == "Objednáno:")
+      assert(await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(3) > td:nth-child(1)")).getText() == "Platba:")
+      assert(await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(4) > td:nth-child(1)")).getText() == "Doprava:")
+      assert(await driver.findElement(By.xpath("//html/body/div[1]/div[3]/div/div[2]/div[6]/table[1]/tbody/tr[2]/td[1]/table/tbody/tr[2]/td/table/tbody/tr/td[1]")).getText() == "Externí kód:")
+      vars["delivery"] = await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(4) > td:nth-child(2)")).getText()
+      vars["deliveryCZ"] = await driver.executeScript("return [\'Česká pošta - Balík do ruky\', \'Česká pošta - Balík na poštu\', \'Zásilkovna\', \'GLS - BusinessParcel\', \'Osobní odběr - Praha 6, Ruzyně\', \'Osobní odběr - Karlovy Vary - expediční sklad\', \'TopTrans - standard\', \'Geis - Home Delivery\']")
+      vars["deliverySK"] = await driver.executeScript("return [\'Slovenská pošta - Balík na adresu\', \'Slovenská pošta - Expres balík na adresu\', \'Slovenská pošta - Balík na poštu\', \'Slovenská pošta - Expres balík na poštu\', \'nadrozmerná preprava\', \'Zásielkovňa\', \'Toptrans\']")
+      vars["deliveryPL"] = await driver.executeScript("return [\'Inpost - Paczkomat\', \'DPD PL\', \'Raben - Raben\', \'przesyłka ponadgabarytowa\']")
+      vars["deliveryHU"] = await driver.executeScript("return [\'GLS BusinessParcel\', \'GLS CsomagPont\', \'Raben\', \'Packeta\']")
+      vars["deliveryRO"] = await driver.executeScript("return [\'Cargus\', \'FAN Courier\', \'Raben RO\', \'Packeta\']")
+      vars["deliveryBG"] = await driver.executeScript("return [\'Econt - Доставка на адрес\', \'Econt - parcelshop\', \'Raben BG\', \'Speedy\']")
+      vars["payment"] = await driver.executeScript("return [\'(Bankovní převod - předem)\', \'(Kartou předem - online)\', \'(dobírka)\']")
+      vars["userSize"] = await driver.findElements(By.xpath("//*[@id=\"snippet-order-info\"]/tbody/tr[1]/td[2]/a")).length
+      if (!!await driver.executeScript("return (arguments[0] > 0)", vars["userSize"])) {
+        vars["user"] = await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(1) > td:nth-child(2) > a")).getText()
+        console.log(vars["projectName"])
+        console.log(vars["delivery"])
+        if (!!await driver.executeScript("return (arguments[0].includes(\'dropshipping\'))", vars["user"])) {
+          assert(await driver.findElement(By.css("#snippet-order-info > tbody > tr:nth-child(4) > td:nth-child(2)")).getText() == "Dropshipping - Dropshipping")
+        } else {
+          if (!!await driver.executeScript("return (arguments[0].includes(\'.cz\'))", vars["projectName"])) {
+            vars["cz"] = await driver.executeScript("return arguments[0].includes(arguments[1])", vars["deliveryCZ"],vars["delivery"])
+            assert(vars["cz"].toString() == "true")
+          } else if (!!await driver.executeScript("return (arguments[0].includes(\'.sk\'))", vars["projectName"])) {
+            vars["sk"] = await driver.executeScript("return arguments[0].includes(arguments[1])", vars["deliverySK"],vars["delivery"])
+            assert(vars["sk"].toString() == "true")
+          } else if (!!await driver.executeScript("return (arguments[0].includes(\'.pl\'))", vars["projectName"])) {
+            vars["pl"] = await driver.executeScript("return arguments[0].includes(arguments[1])", vars["deliveryPL"],vars["delivery"])
+            assert(vars["pl"].toString() == "true")
+          } else if (!!await driver.executeScript("return (arguments[0].includes(\'.hu\'))", vars["projectName"])) {
+            vars["hu"] = await driver.executeScript("return arguments[0].includes(arguments[1])", vars["deliveryHU"],vars["delivery"])
+            assert(vars["hu"].toString() == "true")
+          } else if (!!await driver.executeScript("return (arguments[0].includes(\'.ro\'))", vars["projectName"])) {
+            vars["ro"] = await driver.executeScript("return arguments[0].includes(arguments[1])", vars["deliveryRO"],vars["delivery"])
+            assert(vars["ro"].toString() == "true")
+          } else if (!!await driver.executeScript("return (arguments[0].includes(\'.bg\'))", vars["projectName"])) {
+            vars["bg"] = await driver.executeScript("return arguments[0].includes(arguments[1])", vars["deliveryBG"],vars["delivery"])
+            assert(vars["bg"].toString() == "true")
+          }
+        }
+      }
+      vars["api"] = await driver.findElements(By.xpath("//*[contains(text(), \'Vytvoření objednávky - heureka API\')]")).length
+      vars["linkSize"] = await driver.findElements(By.xpath("//*[@id=\"info\"]/ul/li")).length
+      if (!!await driver.executeScript("return (arguments[0] > 0)", vars["api"])) {
+        assert(vars["linkSize"].toString() == "8")
+      } else {
+        assert(vars["linkSize"].toString() == "7")
+      }
+      vars["paid"] = await driver.findElements(By.xpath("//*[contains(text(), \'Zaplaceno\')]")).length
+      await driver.findElement(By.id("ui-id-18")).click()
+      assert(await driver.findElement(By.id("ui-id-18")).getText() == "Souhrn")
+      if (!!await driver.executeScript("return (arguments[0] > 0)", vars["paid"])) {
+        {
+          const elements = await driver.findElements(By.xpath("//table[@class=\'table-condensed table-hover maxWidth well well-small white\']"))
+          assert(elements.length)
+        }
+        vars["x"] = await driver.findElements(By.xpath("//*[@id=\"snippet-order-summary\"]/div[1]/table/tbody/tr[1]/th")).length
+        assert(vars["x"].toString() == "5")
+        assert(await driver.findElement(By.css("#snippet-order-summary > div:nth-child(1) > table > tbody > tr:nth-child(1) > th:nth-child(1)")).getText() == "Zaplaceno")
+        assert(await driver.findElement(By.css("#snippet-order-summary > div:nth-child(1) > table > tbody > tr:nth-child(1) > th:nth-child(2)")).getText() == "Stav")
+        assert(await driver.findElement(By.css("#snippet-order-summary > div:nth-child(1) > table > tbody > tr:nth-child(1) > th:nth-child(3)")).getText() == "Přijato")
+        assert(await driver.findElement(By.css("#snippet-order-summary > div:nth-child(1) > table > tbody > tr:nth-child(1) > th:nth-child(4)")).getText() == "Vytvořeno")
+      }
+      await driver.findElement(By.id("ui-id-19")).click()
+      assert(await driver.findElement(By.id("ui-id-19")).getText() == "Emaily")
+      vars["mailSize"] = await driver.findElements(By.xpath("//*[@id=\"emails\"]/div/table/tbody/tr")).length
+      await driver.findElement(By.id("ui-id-20")).click()
+      assert(await driver.findElement(By.id("ui-id-20")).getText() == "SMS")
+      await driver.findElement(By.id("ui-id-21")).click()
+      assert(await driver.findElement(By.id("ui-id-21")).getText() == "Inter. pozn.")
+      await driver.findElement(By.id("ui-id-22")).click()
+      assert(await driver.findElement(By.id("ui-id-22")).getText() == "Historie")
+      await driver.findElement(By.id("ui-id-23")).click()
+      assert(await driver.findElement(By.id("ui-id-23")).getText() == "EET")
+      await driver.findElement(By.id("ui-id-24")).click()
+      assert(await driver.findElement(By.id("ui-id-24")).getText() == "Log Balíkobot")
+      if (!!await driver.executeScript("return (arguments[0] > 0)", vars["api"])) {
+        await driver.findElement(By.id("ui-id-25")).click()
+        assert(await driver.findElement(By.id("ui-id-25")).getText() == "Log API")
+      }
       vars["w"] = await driver.executeScript("return Number (arguments[0]) + 1", vars["w"])
     }
   })

@@ -3,9 +3,15 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const assert = require('assert');
 
 const FAQTest = function() {
-  this.timeout(30000);
+  //this.timeout(30000);
   let driver;
   let vars;
+  
+  var FAQTest = require('mocha').beforeEach;
+  var pre = require('mocha').before;
+  var FAQTest = require('mocha').it;
+  var assert = require('chai').assert;
+
   beforeEach(async function() {
     driver = await new Builder().forBrowser('chrome').build();
     vars = {};
@@ -14,9 +20,9 @@ const FAQTest = function() {
     await driver.quit();
   });
   it('FAQTest', async function() {
-    await driver.get("http://test.kokiskashop.sk/najcastejsie-otazky-a-odpovede/");
+    await driver.get("http://www.kokiskashop.sk/najcastejsie-otazky-a-odpovede/");
     vars["faqurl"] = await driver.executeScript("return window.location.href");
-    assert(vars["faqurl"].toString() === "http://test.kokiskashop.sk/najcastejsie-otazky-a-odpovede/");
+    assert(vars["faqurl"].toString() === "http://www.kokiskashop.sk/najcastejsie-otazky-a-odpovede/");
     assert(await driver.getTitle() === "Najčastejšie otázky | Kokiskashop.sk");
     {
       const elements = await driver.findElements(By.css(".page__title"));
